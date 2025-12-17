@@ -63,12 +63,12 @@ const Sound = {
         const gain = audioCtx.createGain();
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(100, t);
-        osc.frequency.exponentialRampToValueAtTime(800, t + 2.0);
+        osc.frequency.exponentialRampToValueAtTime(800, t + 3.0); // 3.0s
         gain.gain.setValueAtTime(0, t);
-        gain.gain.linearRampToValueAtTime(0.2, t + 1.8);
-        gain.gain.linearRampToValueAtTime(0, t + 2.0);
+        gain.gain.linearRampToValueAtTime(0.2, t + 2.8);
+        gain.gain.linearRampToValueAtTime(0, t + 3.0);
         osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(t); osc.stop(t + 2.0);
+        osc.start(t); osc.stop(t + 3.0);
     },
     playPop: () => { // RESTORED
         const t = audioCtx.currentTime;
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 omikujiBox.classList.remove('shaking-violent');
                 resolve();
-            }, 2000);
+            }, 3000); // Extended to 3s
         });
     }
 
@@ -214,10 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // If Daikichi OR Kyo, do the "Suspense" animation
         if (fortune.name === '大吉' || fortune.name === '凶') {
             if (Sound.playPop) Sound.playPop();
-            await new Promise(r => setTimeout(r, 500)); // Pause
+            await new Promise(r => setTimeout(r, 1000)); // Pause (Increased)
 
             drawButton.querySelector('.button-text').textContent = '！？';
-            await shakeBoxViolent(); // 2s Violent Shake
+            await shakeBoxViolent(); // 3s Violent Shake
+
+            // Final Silence
+            await new Promise(r => setTimeout(r, 800));
         }
 
         // 4. Show Result
