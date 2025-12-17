@@ -1,0 +1,948 @@
+/* ===================================
+   健康スタジオ百歳製造所 正月クーポンサイト
+   Wa-Modern Style - Robust Edition
+   =================================== */
+
+:root {
+    /* カラーパレット - 和モダン */
+    --color-vermillion: #D9333F;
+    --color-vermillion-dark: #B9232F;
+    --color-gold: #C5A059;
+    --color-gold-light: #E5C079;
+    --color-text-main: #333333;
+    --color-text-sub: #555555;
+
+    /* フォント */
+    --font-serif: 'Noto Serif JP', serif;
+    --font-sans: 'Noto Sans JP', sans-serif;
+
+    /* スペーシング */
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 4rem;
+
+    /* ボーダーラジウス */
+    --radius-card: 24px;
+    --radius-btn: 50px;
+
+    /* シャドウ */
+    --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.05);
+}
+
+/* ===================================
+   Base Setup
+   =================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text-main);
+    background-color: #F0F4F8;
+    min-height: 100vh;
+    line-height: 1.8;
+    overflow-x: hidden;
+    /* 横スクロール防止 */
+    position: relative;
+    /* 背景画像 */
+    background: url('assets/clean_shrine_bg.png') center/cover no-repeat fixed;
+    padding-bottom: 60px;
+    /* フッター用余白 */
+}
+
+/* オーバーレイ */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ===================================
+   Layout Container
+   =================================== */
+.main {
+    width: 100%;
+    max-width: 700px;
+    /* 読みやすい幅に制限 */
+    margin: 0 auto;
+    padding: var(--space-lg) 20px;
+    /* スマホでの余白確保 */
+    position: relative;
+    z-index: 2;
+    /* 装飾より上 */
+}
+
+/* カードコンテナ */
+.page-container {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 1);
+    position: relative;
+    overflow: hidden;
+    /* 内部のはみ出し防止 */
+}
+
+/* ===================================
+   Decorations (Fixed Placement)
+   =================================== */
+/* 門松は画面端に固定し、コンテンツとは独立させる */
+.decor-kadomatsu {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    /* コンテンツより前面に来ないように注意、しかしフッターよりは後ろ */
+    width: 140px;
+    max-width: 20vw;
+    /* 画面幅に応じて縮小 */
+    pointer-events: none;
+    /* クリックを邪魔しない */
+}
+
+.decor-kadomatsu.left {
+    left: 0;
+    transform: translate(-10%, 10%);
+    /* 少し見切れさせて自然に */
+}
+
+.decor-kadomatsu.right {
+    right: 0;
+    transform: translate(10%, 10%);
+}
+
+.decor-kadomatsu img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+}
+
+/* モバイル対応：門松が邪魔なら下げる */
+@media (max-width: 600px) {
+    .decor-kadomatsu {
+        width: 100px;
+        bottom: -20px;
+    }
+}
+
+/* ===================================
+   Header & Hero
+   =================================== */
+.header {
+    margin-bottom: var(--space-md);
+}
+
+.year-badge {
+    display: inline-block;
+    background: var(--color-vermillion);
+    color: white;
+    font-family: var(--font-serif);
+    font-weight: bold;
+    padding: 0.3rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-md);
+}
+
+.studio-name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-sub);
+}
+
+/* ヒーロー画像エリア */
+.hero-image-wrapper {
+    margin: var(--space-md) auto;
+    width: 100%;
+    max-width: 480px;
+    /* 画像が大きすぎないように */
+}
+
+.hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* 角を少し丸めるか、そのままにするか */
+    border-radius: 8px;
+}
+
+.hero-title {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.4;
+    margin: var(--space-md) 0;
+    color: var(--color-text-main);
+}
+
+.hero-description {
+    font-size: 0.95rem;
+    color: var(--color-text-sub);
+    line-height: 1.8;
+}
+
+/* 区切り雲画像 */
+.divider-cloud {
+    margin: var(--space-xl) auto;
+    width: 180px;
+    opacity: 0.9;
+}
+
+.divider-cloud img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===================================
+   Omikuji Section
+   =================================== */
+.omikuji-section {
+    padding: var(--space-lg) 0;
+    position: relative;
+    /* 背景雲の基準 */
+}
+
+/* 背景の雲 */
+.bg-cloud {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    /* おみくじ箱より大きく */
+    max-width: 80%;
+    z-index: 0;
+    /* 箱より後ろ */
+    opacity: 0.6;
+    /* 薄くして馴染ませる */
+    pointer-events: none;
+}
+
+.bg-cloud img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* おみくじ箱 */
+.omikuji-box {
+    margin: 0 auto var(--space-lg);
+    width: 120px;
+    height: 180px;
+    background: var(--color-vermillion-dark);
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+    /* 雲より前 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 2px solid #3E2723;
+}
+
+/* 箱の蓋 */
+.omikuji-box::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    right: -5px;
+    height: 15px;
+    background: #5D4037;
+    border-radius: 4px;
+}
+
+/* 箱の文字 */
+.omikuji-label {
+    writing-mode: vertical-rl;
+    font-family: var(--font-serif);
+    color: var(--color-gold);
+    border: 2px solid var(--color-gold);
+    padding: 10px 4px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+}
+
+/* 揺れアニメーション */
+.omikuji-box.shaking {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both infinite;
+    box-shadow: 0 0 30px var(--color-gold), 0 0 60px var(--color-vermillion);
+    border-color: var(--color-gold);
+}
+
+.omikuji-box.shaking-violent {
+    animation: violentShake 0.1s linear infinite;
+    box-shadow: 0 0 50px #FFD700, 0 0 100px #FF0000;
+    /* More intense glow */
+    border-color: #FF0000;
+    filter: brightness(1.2);
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes violentShake {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-5px, 5px) rotate(5deg);
+    }
+
+    50% {
+        transform: translate(5px, -5px) rotate(-5deg);
+    }
+
+    75% {
+        transform: translate(-5px, -5px) rotate(5deg);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+/* ボタン */
+.draw-button {
+    background: linear-gradient(to bottom right, var(--color-vermillion), #FF6B6B);
+    color: white;
+    border: none;
+    padding: 1.2rem 3.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(217, 51, 63, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 250px;
+}
+
+.draw-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(217, 51, 63, 0.4);
+}
+
+.draw-button:disabled {
+    filter: grayscale(0.5);
+    cursor: wait;
+}
+
+.draw-hint {
+    margin-top: 1rem;
+    color: var(--color-gold);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* ===================================
+   Modal (Result)
+   =================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    /* 画面内に収める */
+    overflow: hidden;
+    /* Contain inner scroll */
+    display: flex;
+    /* Use Flexbox */
+    flex-direction: column;
+    border-radius: var(--radius-card);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+    transition: 0.3s;
+    position: relative;
+    /* For absolute positioning of close icon */
+}
+
+.modal-close-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    z-index: 20;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-close-icon:hover {
+    color: white;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+.modal-header {
+    background: var(--color-vermillion);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    flex-shrink: 0;
+    /* ヘッダーは縮めない */
+}
+
+.modal-title {
+    font-family: var(--font-serif);
+    margin: 0;
+}
+
+.modal-body {
+    padding: 2rem;
+    text-align: center;
+    overflow-y: auto;
+    /* ここだけスクロールさせる */
+    flex: 1;
+    /* 余白を埋める */
+}
+
+.fortune-result {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--color-vermillion);
+    margin-bottom: 0.5rem;
+}
+
+/* 運勢色分け */
+.fortune-result.daikichi {
+    color: #D9333F;
+}
+
+.fortune-result.chukichi {
+    color: #F57F17;
+}
+
+.fortune-result.shokichi {
+    color: #0288D1;
+}
+
+.fortune-message {
+    color: var(--color-text-sub);
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.coupon-card {
+    background: #FFF8E1;
+    border: 2px dashed var(--color-gold);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.coupon-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #8D6E63;
+    margin-bottom: 0.5rem;
+}
+
+.studio-logo {
+    max-width: 280px;
+    height: auto;
+    display: block;
+    margin: 0.5rem auto 0;
+}
+
+.coupon-code {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #333;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+
+/* 重要なお知らせ（画像保存必須） */
+.warning-box {
+    background: #FFEBEE;
+    /* 薄い赤 */
+    border: 2px solid #FFCDD2;
+    color: #D32F2F;
+    /* 濃い赤 */
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: var(--space-md);
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5;
+    animation: pulseWarning 2s infinite;
+}
+
+@keyframes pulseWarning {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* クーポンの使い方エリア */
+.how-to-use {
+    margin-top: var(--space-md);
+    padding: var(--space-sm);
+    background: #F9F9F9;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+}
+
+.how-to-use h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-vermillion-dark);
+    text-align: center;
+    font-weight: bold;
+}
+
+.how-to-use ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* LINEボタン */
+.line-btn {
+    display: block;
+    background-color: #06C755;
+    /* LINE Green */
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3);
+    transition: transform 0.2s;
+}
+
+.line-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(6, 199, 85, 0.4);
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    text-align: center;
+}
+
+
+/* Coupon Box Styling */
+.coupon-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 2px dashed #BCAAA4;
+    background-color: #FFF8E1;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Coupon Details */
+.coupon-target {
+    font-size: 0.9rem;
+    color: #555;
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+}
+
+.coupon-amount {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #FF0000;
+    background: #FFFFFF;
+    border: 4px solid #FF0000;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    line-height: 1;
+    display: inline-block;
+    margin: 0.5rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: "Hiragino Kaku Gothic StdN", "Arial Black", sans-serif;
+    letter-spacing: -0.05em;
+    transform: rotate(-2deg);
+    /* Slightly tilted for dynamic effect */
+}
+
+.coupon-expiry {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+.phone-btn {
+    display: block;
+    width: 100%;
+    background-color: #333;
+    /* Dark neutral or Brand color */
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    /* margin-top managed by container gap */
+}
+
+.coupon-code-area {
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed #ccc;
+    font-size: 0.8rem;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+}
+
+#couponCode {
+    /* ID selector for specificity */
+    font-family: monospace;
+    font-weight: normal;
+    font-size: 1.0rem;
+    color: #666;
+    background: #eee;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0;
+}
+
+.modal-close-btn {
+    margin-top: var(--space-md);
+    background: transparent;
+    border: 1px solid var(--color-text-sub);
+    color: var(--color-text-sub);
+    padding: 0.5rem 2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-close-btn:hover {
+    background: var(--color-bg-sub);
+}
+
+.modal-save-btn {
+    margin-top: var(--space-sm);
+    background: var(--color-vermillion) !important;
+    /* 朱色 */
+    color: white !important;
+    border: none !important;
+    padding: 0.8rem 2rem !important;
+    border-radius: 30px !important;
+    font-weight: bold;
+    font-family: var(--font-serif);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(217, 51, 63, 0.3);
+}
+
+.modal-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(217, 51, 63, 0.4);
+}
+
+.close-button {
+    background: transparent;
+    border: 1px solid #AAA;
+    padding: 0.5rem 2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    transition: 0.2s;
+}
+
+.close-button:hover {
+    background: #EEE;
+    color: #333;
+}
+
+/* スマホ最適化 */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .page-container {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+
+    .fortune-result {
+        font-size: 2.5rem;
+    }
+}
+
+/* Result Animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 1. Idle Animation: Floating Cloud */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) translateY(-15px);
+    }
+}
+
+.bg-cloud {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* 2. Drawing Animation: Glowing Aura */
+.omikuji-box.shaking {
+    box-shadow: 0 0 30px var(--color-gold), 0 0 60px var(--color-vermillion);
+    border-color: var(--color-gold);
+}
+
+/* 3. Result Animation: Rotating Sunburst Background */
+.modal-overlay.active {
+    background: rgba(0, 0, 0, 0.85);
+    /* Slightly darker for contrast */
+    overflow: hidden;
+    /* Contain the sunburst */
+    perspective: 1000px;
+}
+
+.modal-overlay.active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200vmax;
+    height: 200vmax;
+    background: repeating-conic-gradient(from 0deg,
+            rgba(255, 215, 0, 0.15) 0deg 15deg,
+            transparent 15deg 30deg);
+    transform: translate(-50%, -50%);
+    animation: sunburst 20s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes sunburst {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Enhancing Modal Pop */
+.modal-overlay.active .modal {
+    animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 凶（ハズレ）のスタイル - 悲壮感 */
+.fortune-result.kyo {
+    color: #4a4a4a;
+    /* Dark Gray */
+    text-shadow: none;
+    font-family: 'Courier New', serif;
+    /* A bit colder font */
+}
+
+/* Gloomy Overlay for Kyo */
+.modal-overlay.active.gloomy {
+    background: rgba(20, 0, 30, 0.95);
+    /* Dark purple/black */
+}
+
+.modal-overlay.active.gloomy::before {
+    display: none;
+    /* Hide sunburst */
+}
+
+/* Rain animation for gloom */
+@keyframes rain {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+.modal-overlay.active.gloomy .modal {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    animation: shakeGloomy 0.5s ease-in-out;
+}
+
+@keyframes shakeGloomy {
+
+    0%,
+    100% {
+        transform: scale(0.95) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(0.95) rotate(-2deg);
+    }
+
+    75% {
+        transform: scale(0.95) rotate(2deg);
+    }
+}
+
+/* チャンス告知バナー */
+.chance-banner {
+    background: linear-gradient(135deg, #FFD700, #FFF8DC, #FFD700);
+    color: #b91c1c;
+    padding: 0.8rem 2.0rem;
+    border-radius: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    display: inline-block;
+    animation: bounceSlow 2.5s infinite ease-in-out;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 10;
+}
+
+.chance-banner .chance-icon {
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.chance-banner .highlight {
+    font-size: 1.8rem;
+    color: #d32f2f;
+    margin: 0 0.3rem;
+    vertical-align: middle;
+    font-family: var(--font-serif);
+}
+
+.chance-banner .chance-sub {
+    font-size: 0.9rem;
+    display: block;
+    color: #555;
+    margin-top: 0.2rem;
+    font-weight: normal;
+}
+
+@keyframes bounceSlow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}

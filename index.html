@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年 新春おみくじキャンペーン | 健康スタジオ百歳製造所</title>
+    <meta name="description" content="健康スタジオ百歳製造所の新春おみくじキャンペーン。おみくじを引いてお得なクーポンをゲットしよう！">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 装飾：門松（背景固定） -->
+    <div class="decor-kadomatsu left"><img src="assets/kadomatsu_decor.png" alt="門松"></div>
+    <div class="decor-kadomatsu right"><img src="assets/kadomatsu_decor.png" alt="門松"></div>
+
+    <!-- コンテンツコンテナ -->
+    <main class="main">
+        <div class="page-container">
+            <!-- ヘッダー -->
+            <header class="header">
+                <span class="year-badge">
+                    <span class="emoji">🎍</span> 2026 <span class="emoji">🎍</span>
+                </span>
+                <h1 class="studio-name">
+                    <img src="assets/logo.png" alt="健康スタジオ 百歳製造所" class="studio-logo">
+                </h1>
+            </header>
+
+            <!-- ヒーローセクション -->
+            <section class="hero">
+                <div class="hero-image-wrapper">
+                    <img src="assets/hero_illustration.png" alt="2026年 午年" class="hero-img">
+                </div>
+                <div class="hero-content">
+                    <!-- チャンス告知バナー -->
+                    <div class="chance-banner">
+                        <span class="chance-icon">🎯</span>
+                        チャンスは<span class="highlight">3回</span>まで！
+                        <span class="chance-sub">諦めずに挑戦しよう！</span>
+                    </div>
+                    <p class="hero-subtitle">✨ 謹賀新年 ✨</p>
+                    <h2 class="hero-title">新春おみくじで<br>お得なクーポンをゲット！</h2>
+                    <p class="hero-description">
+                        新年のご挨拶と日頃の感謝を込めて、<br>
+                        豪華クーポンが当たるおみくじをご用意しました。<br>
+                        <strong>あなたの2026年の運勢は…？</strong>
+                    </p>
+                </div>
+            </section>
+
+            <!-- おみくじセクション -->
+            <section class="omikuji-section">
+                <!-- 背景の雲 -->
+                <div class="bg-cloud"><img src="assets/gold_cloud.png" alt=""></div>
+
+                <div class="omikuji-box" id="omikujiBox">
+                    <div class="omikuji-label">おみくじ</div>
+                </div>
+
+                <button class="draw-button" id="drawButton">
+                    <span class="button-text">おみくじを引く</span>
+                </button>
+
+                <p class="draw-hint">↑ タップして運勢を占う</p>
+            </section>
+        </div>
+
+        <!-- フッター -->
+        <footer class="footer" style="margin-top: 3rem; text-align: center; color: #666; font-size: 0.8rem;">
+            <p class="campaign-period">期間: 2026年1月1日〜1月31日</p>
+            <p style="margin-top: 0.5rem;">※ おひとり様1回限り有効</p>
+        </footer>
+    </main>
+
+    <!-- 結果モーダル -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="resultModal">
+            <button class="modal-close-icon" id="modalCloseIcon">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">おみくじ結果</h3>
+            </div>
+            <div class="modal-body">
+                <div class="fortune-result" id="fortuneResult">
+                    <p class="fortune-text">大吉</p>
+                </div>
+                <div class="coupon-info">
+                    <p class="coupon-message" id="couponMessage">最高の運勢！</p>
+                    <div class="coupon-box">
+                        <span class="coupon-label">COUPON</span>
+                        <span class="coupon-value" id="couponValue">初回セッション 半額</span>
+                        <div class="coupon-code-area">
+                            <span>コード: </span>
+                            <span class="coupon-code" id="couponCode">NEWYEAR2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="modal-save-btn" id="saveButton"
+                    style="margin: 1.5rem 0 1rem; background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%;">クーポン画像を保存</button>
+
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    <strong>重要：来店時に画像の提示が必要です</strong><br>
+                    <span style="font-size: 0.85rem;">※ 保存した画像がないとクーポンは利用できません</span>
+                </div>
+
+                <div class="how-to-use">
+                    <h4>クーポンの使い方</h4>
+                    <ol>
+                        <li>「画像を保存」でクーポンを保存</li>
+                        <li>公式LINEを友だち追加</li>
+                        <li>トークで画像を送信して予約！<br><span style="font-size: 0.9em; color: #666;">(もしくは電話で予約)</span></li>
+                    </ol>
+                    <div class="contact-buttons"
+                        style="display: flex; flex-direction: column; gap: 10px; margin-top: 1rem;">
+                        <a href="https://lin.ee/7xwmnP6" class="line-btn" target="_blank"
+                            rel="noopener noreferrer">公式ラインから予約</a>
+                        <a href="tel:08061227551" class="phone-btn">電話で予約 (080-6122-7551)</a>
+                    </div>
+                </div>
+                <p class="usage-note" style="font-size: 0.8rem; color: #999; margin-top: 1.5rem;">
+                    ※ 整体・パーソナルトレーニングのセッションにのみ適用されます<br>
+                    ※ ご予約時にこの画面をスタッフにお見せください<br>
+                    ※ 他のクーポンとの併用はできません
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="close-button" id="modalClose">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 紙吹雪コンテナ -->
+    <div class="confetti-container" id="confettiContainer"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2000;"></div>
+
+    <!-- Debug Controls (Remove before deploy) -->
+    <div id="debugControls"
+        style="position: fixed; bottom: 10px; left: 10px; z-index: 1000; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px;">
+        <p style="color: white; margin: 0 0 5px; font-size: 12px; font-weight: bold;">[DEBUG] Force Result</p>
+        <button onclick="debugDraw('大吉')"
+            style="padding: 5px 10px; margin: 2px; background: #FFD700; border: none; border-radius: 4px; cursor: pointer;">大吉</button>
+        <button onclick="debugDraw('中吉')"
+            style="padding: 5px 10px; margin: 2px; background: #FFF; border: none; border-radius: 4px; cursor: pointer;">中吉</button>
+        <button onclick="debugDraw('小吉')"
+            style="padding: 5px 10px; margin: 2px; background: #FFF; border: none; border-radius: 4px; cursor: pointer;">小吉</button>
+        <button onclick="debugDraw('吉')"
+            style="padding: 5px 10px; margin: 2px; background: #FFF; border: none; border-radius: 4px; cursor: pointer;">吉</button>
+        <button onclick="debugDraw('凶')"
+            style="padding: 5px 10px; margin: 2px; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer;">凶(ハズレ)</button>
+        <button onclick="resetHistory()"
+            style="padding: 5px 10px; margin: 2px 0 0; display: block; width: 100%; background: #ff4444; color: white; border: none; border-radius: 4px; cursor: pointer;">履歴リセット</button>
+    </div>
+
+    <!-- html2canvas for saving coupons -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <!-- canvas-confetti for rich effects -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
