@@ -93,8 +93,10 @@ body::before {
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 1);
     position: relative;
-    overflow: hidden;
-    /* 内部のはみ出し防止 */
+    border: 1px solid rgba(255, 255, 255, 1);
+    position: relative;
+    /* overflow: hidden; Removed to allow ribbon overhang */
+    overflow: visible;
 }
 
 /* ===================================
@@ -965,21 +967,27 @@ body::before {
 .campaign-title {
     position: relative;
     background: #b71c1c;
-    /* Elegant Red */
     color: #fff;
     text-align: center;
-    padding: 1rem 1rem;
-    /* Adjust padding */
-    margin: 10px auto 30px;
-    /* Spacing */
-    width: 90%;
-    max-width: 600px;
+    padding: 1.2rem 1rem;
+
+    /* Full Width Wrap Logic */
+    width: calc(100% + 4rem + 20px);
+    /* Padding*2 + Overhang*2 */
+    margin-left: calc(-2rem - 10px);
+    margin-right: calc(-2rem - 10px);
+    margin-top: -1rem;
+    /* Adjust vertical position if needed */
+    margin-bottom: 30px;
+
+    max-width: none;
+
     /* Gold Borders top/bottom */
     border-top: 3px solid #BF953F;
     border-bottom: 3px solid #BF953F;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     display: block;
-    /* Ensure centering */
+    z-index: 10;
 }
 
 /* Ribbon Folds (Triangles below corners) */
@@ -988,20 +996,22 @@ body::before {
     content: '';
     position: absolute;
     top: 100%;
+    /* Below ribbon */
     width: 0;
     height: 0;
-    border-top: 15px solid #600000;
-    /* Darker red */
+    border-top: 10px solid #7f0000;
+    /* Darker red fold */
+    z-index: -1;
 }
 
 .campaign-title::before {
     left: 0;
-    border-left: 15px solid transparent;
+    border-left: 10px solid transparent;
 }
 
 .campaign-title::after {
     right: 0;
-    border-right: 15px solid transparent;
+    border-right: 10px solid transparent;
 }
 
 .title-sub {
