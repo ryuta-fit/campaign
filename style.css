@@ -247,8 +247,9 @@ body::before {
     height: 180px;
     background: var(--color-vermillion-dark);
     border-radius: 4px;
+    padding-top: 1rem;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     /* 雲より前 */
     display: flex;
     justify-content: center;
@@ -648,6 +649,45 @@ body::before {
     font-weight: bold;
 }
 
+.retry-btn {
+    display: block;
+    width: 100%;
+    margin: 1.5rem 0 1rem;
+    background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 50px;
+    /* Pill shape */
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulseButton 2s infinite;
+}
+
+.retry-btn:active {
+    transform: scale(0.95);
+}
+
+@keyframes pulseButton {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(255, 87, 34, 0.6);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+    }
+}
+
 .phone-btn {
     display: block;
     width: 100%;
@@ -896,21 +936,124 @@ body::before {
     }
 }
 
-/* チャンス告知バナー */
+/* チャンス告知シール（ボタンっぽさを排除） */
 .chance-banner {
-    background: linear-gradient(135deg, #FFD700, #FFF8DC, #FFD700);
-    color: #b91c1c;
-    padding: 0.8rem 2.0rem;
+    background: #FFD700;
+    /* Flat Gold base */
+    background: radial-gradient(circle at center, #FFEB3B, #FFC107);
+    color: #b71c1c;
+    padding: 0.8rem 2rem;
     border-radius: 50px;
-    font-weight: bold;
+    /* Pill shape */
+    font-weight: 900;
+    font-size: 1.1rem;
     text-align: center;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-    display: inline-block;
-    animation: bounceSlow 2.5s infinite ease-in-out;
-    border: 3px solid rgba(255, 255, 255, 0.8);
+    margin: 1rem auto;
+    width: fit-content;
+    max-width: 90%;
+    /* シール風デザイン: 白ブチと薄い影 */
+    border: 3px solid #FFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* 少し傾けて「貼った感」を出す */
+    transform: rotate(-2deg);
+    pointer-events: none;
+    /* クリック不可を明示 */
     position: relative;
-    z-index: 10;
+    z-index: 20;
+}
+
+.campaign-title {
+    position: relative;
+    background: #b71c1c;
+    /* Elegant Red */
+    color: #fff;
+    text-align: center;
+    padding: 1rem 1rem;
+    /* Adjust padding */
+    margin: 10px auto 30px;
+    /* Spacing */
+    width: 90%;
+    max-width: 600px;
+    /* Gold Borders top/bottom */
+    border-top: 3px solid #BF953F;
+    border-bottom: 3px solid #BF953F;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    display: block;
+    /* Ensure centering */
+}
+
+/* Ribbon Folds (Triangles below corners) */
+.campaign-title::before,
+.campaign-title::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #600000;
+    /* Darker red */
+}
+
+.campaign-title::before {
+    left: 0;
+    border-left: 15px solid transparent;
+}
+
+.campaign-title::after {
+    right: 0;
+    border-right: 15px solid transparent;
+}
+
+.title-sub {
+    /* Subtitle on Ribbon - White/Gold POP */
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    color: #FFD700;
+    /* Solid Gold */
+    text-shadow: 1px 1px 0 #500;
+    letter-spacing: 0.1em;
+}
+
+.title-main {
+    /* Main Title on Ribbon */
+    display: block;
+    font-size: 2.0rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+
+    /* Luxury Gold Gradient TEXT */
+    background: linear-gradient(to bottom, #FFD700, #FDB931, #FFC107, #B8860B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    /* Shadow for legibility on Red */
+    filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes goldShimmer {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* シールの光沢感（オプション） */
+.chance-banner::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    right: 10px;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50px 50px 20px 20px;
+    pointer-events: none;
 }
 
 .chance-banner .chance-icon {
@@ -920,7 +1063,6 @@ body::before {
 }
 
 .chance-banner .highlight {
-    font-size: 1.8rem;
     color: #d32f2f;
     margin: 0 0.3rem;
     vertical-align: middle;

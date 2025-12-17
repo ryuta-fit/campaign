@@ -24,12 +24,15 @@
         <div class="page-container">
             <!-- ヘッダー -->
             <header class="header">
-                <span class="year-badge">
-                    <span class="emoji">🎍</span> 2026 <span class="emoji">🎍</span>
-                </span>
-                <h1 class="studio-name">
-                    <img src="assets/logo.png" alt="健康スタジオ 百歳製造所" class="studio-logo">
-                </h1>
+                <div class="container">
+                    <header>
+                        <h1 class="campaign-title">
+                            <span class="title-sub">総額100万円プレゼント</span>
+                            <span class="title-main">新春おみくじキャンペーン</span>
+                        </h1>
+                        <img src="assets/logo.png" alt="健康スタジオ 百歳製造所" class="studio-logo">
+                    </header>
+                </div>
             </header>
 
             <!-- ヒーローセクション -->
@@ -37,6 +40,18 @@
                 <div class="hero-image-wrapper">
                     <img src="assets/hero_illustration.png" alt="2026年 午年" class="hero-img">
                 </div>
+
+                <!-- キャンペーン状況（緊急性・総額表示） -->
+                <div class="campaign-status">
+                    <div class="total-value-banner">
+                        <span class="value-label">キャンペーン還元総額</span>
+                        <span class="value-amount">100万円</span>
+                        <span class="value-suffix">相当プレゼント！</span>
+                    </div>
+
+                    <!-- stock-board removed based on user request -->
+                </div>
+
                 <div class="hero-content">
                     <!-- チャンス告知バナー -->
                     <div class="chance-banner">
@@ -73,8 +88,7 @@
 
         <!-- フッター -->
         <footer class="footer" style="margin-top: 3rem; text-align: center; color: #666; font-size: 0.8rem;">
-            <p class="campaign-period">期間: 2026年1月1日〜1月31日</p>
-            <p style="margin-top: 0.5rem;">※ おひとり様1回限り有効</p>
+
         </footer>
     </main>
 
@@ -89,7 +103,7 @@
                 <div class="fortune-result" id="fortuneResult">
                     <p class="fortune-text">大吉</p>
                 </div>
-                <div class="coupon-info">
+                <div class="coupon-info" id="couponContent">
                     <p class="coupon-message" id="couponMessage">最高の運勢！</p>
                     <div class="coupon-box">
                         <span class="coupon-label">COUPON</span>
@@ -100,22 +114,30 @@
                         </div>
                     </div>
                 </div>
+                <!-- Kyo (Fail) Content -->
+                <div id="kyoContent" style="display: none; text-align: center; padding: 2rem 0;">
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #555;">運気上昇の予感...</p>
+                    <p style="font-size: 0.9rem; color: #888; margin-top: 0.5rem;">諦めずに再挑戦！</p>
+                </div>
 
-                <button class="modal-save-btn" id="saveButton"
-                    style="margin: 1.5rem 0 1rem; background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%;">クーポン画像を保存</button>
+                <!-- Save Button Removed as per request -->
 
-                <div class="warning-box">
-                    <span class="warning-icon">⚠️</span>
-                    <strong>重要：来店時に画像の提示が必要です</strong><br>
-                    <span style="font-size: 0.85rem;">※ 保存した画像がないとクーポンは利用できません</span>
+                <button class="retry-btn" id="retryButton" style="display: none;">
+                    <span class="emoji">🔥</span> 気を取り直してもう一度！ <span class="emoji">🔥</span>
+                </button>
+
+                <div class="warning-box" style="background: #e8f5e9; border: 2px solid #4CAF50; color: #333;">
+                    <span class="warning-icon">✅</span>
+                    <strong>ご来店時にこの画面をご提示ください</strong><br>
+                    <span style="font-size: 0.85rem;">※ スクリーンショットでもご利用いただけます</span>
                 </div>
 
                 <div class="how-to-use">
                     <h4>クーポンの使い方</h4>
                     <ol>
-                        <li>「画像を保存」でクーポンを保存</li>
-                        <li>公式LINEを友だち追加</li>
-                        <li>トークで画像を送信して予約！<br><span style="font-size: 0.9em; color: #666;">(もしくは電話で予約)</span></li>
+                        <li>この画面をスクリーンショット、または保存</li>
+                        <li>来店時にスタッフに提示</li>
+                        <li>（予約時は「おみくじクーポン利用」とお伝えください）</li>
                     </ol>
                     <div class="contact-buttons"
                         style="display: flex; flex-direction: column; gap: 10px; margin-top: 1rem;">
