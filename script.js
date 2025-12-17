@@ -409,15 +409,29 @@ function shakeBoxViolent() {
 }
 
 // Event Listeners
-drawButton.addEventListener('click', () => startOmikuji());
+// Resume AudioContext IMMEDIATELY on user interaction (Touch/Click)
+function unlockAudio() {
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume().then(() => {
+            // Unbind once unlocked
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        });
+    }
+}
+document.addEventListener('touchstart', unlockAudio, { passive: true });
+document.addEventListener('click', unlockAudio, { passive: true });
+
+drawButton.addEventListener('click', () => {
+    // Ensure context is running individually for the button too
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    startOmikuji();
+});
 
 async function startOmikuji(forcedType = null) {
     if (isDrawing) return;
+    // Audio resumed in the event listener above
 
-    // Resume AudioContext on first interaction
-    if (audioCtx.state === 'suspended') {
-        await audioCtx.resume();
-    }
 
     // Check Limit
     const count = parseInt(localStorage.getItem('omikuji_count_2025') || '0');
@@ -577,11 +591,28 @@ saveButton.addEventListener('click', () => {
 
         }
     }).then(canvas => {
-        // Download
+        const dataUrl = canvas.toDataURL('image/png');
+
+        // 1. Try generic download (Works on PC/Android)
         const link = document.createElement('a');
         link.download = `omikuji_coupon_${storedFortune ? storedFortune.code : 'win'}_2026.png`;
-        link.href = canvas.toDataURL('image/png');
+        link.href = dataUrl;
         link.click();
+
+        // 2. Show Preview Modal for iOS (Long press to save)
+        const previewOverlay = document.getElementById('imagePreviewOverlay');
+        const container = document.getElementById('generatedImageContainer');
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+
+        container.innerHTML = ''; // Clear old
+        container.appendChild(img);
+
+        previewOverlay.classList.add('active'); // Show modal
+
     }).catch(err => {
         console.error('Capture failed:', err);
         alert('画像の保存に失敗しました。もう一度お試しください。');
@@ -592,4 +623,11 @@ saveButton.addEventListener('click', () => {
 
 modalClose.addEventListener('click', closeModal);
 document.getElementById('modalCloseIcon').addEventListener('click', closeModal);
+
+// Preview Modal Close Logic
+const previewOverlay = document.getElementById('imagePreviewOverlay');
+const closePreview = () => previewOverlay.classList.remove('active');
+document.getElementById('previewCloseBtn').addEventListener('click', closePreview);
+document.getElementById('previewCloseIcon').addEventListener('click', closePreview);
+
 omikujiBox.addEventListener('click', () => !isDrawing && drawButton.click());
