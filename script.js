@@ -344,8 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // User requested removal of the Save Coupon button.
     // Logic deleted.
 
-    // Debug
-    window.debugForceWin = () => showResult(FORTUNES[0]);
-    window.resetDebug = () => { localStorage.clear(); location.reload(); };
+
 
 });
