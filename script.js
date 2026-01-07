@@ -6,7 +6,7 @@
 const FORTUNES = [
     {
         name: '大吉',
-        probability: 0.10,
+        probability: 0.05,
         coupon: '<span class="coupon-target">全セッション対象</span><br><span class="coupon-amount">1,500円 OFF</span><div class="coupon-expiry">有効期限：2026年2月末日まで</div>',
         code: 'DAIKICHI_1500',
         message: '天晴れ！最高の1年の始まりです！',
@@ -14,7 +14,7 @@ const FORTUNES = [
     },
     {
         name: '中吉',
-        probability: 0.20,
+        probability: 0.10,
         coupon: '<span class="coupon-target">全セッション対象</span><br><span class="coupon-amount">1,000円 OFF</span><div class="coupon-expiry">有効期限：2026年2月末日まで</div>',
         code: 'CHUKICHI_1000',
         message: '運気上昇中！良いことがありそう。',
@@ -22,7 +22,7 @@ const FORTUNES = [
     },
     {
         name: '小吉',
-        probability: 0.35,
+        probability: 0.40,
         coupon: '<span class="coupon-target">全セッション対象</span><br><span class="coupon-amount">500円 OFF</span><div class="coupon-expiry">有効期限：2026年2月末日まで</div>',
         code: 'SHOKICHI_500',
         message: 'ささやかな幸せが訪れるかも？',
@@ -30,7 +30,7 @@ const FORTUNES = [
     },
     {
         name: '吉',
-        probability: 0.35,
+        probability: 0.45,
         coupon: '<span class="coupon-target">全セッション対象</span><br><span class="coupon-amount">300円 OFF</span><div class="coupon-expiry">有効期限：2026年2月末日まで</div>',
         code: 'KICHI_300',
         message: '堅実な一歩を踏み出しましょう。',
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Drawing Logic
     function drawFortune() {
         let count = parseInt(localStorage.getItem('omikuji_draw_count_2026') || '0');
-        if (count < 2) { // 0, 1 -> Fail
+        if (count < 1) { // 0 -> Fail
             return {
                 name: '凶',
                 probability: 0,
